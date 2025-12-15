@@ -1,0 +1,7 @@
+{
+  "name": "PrimeVitality 50+",
+  "description": "A tailored, energetic, and classic weight loss companion designed specifically for individuals over 50. Features personalized plans, local wellness discovery, and AI coaching.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

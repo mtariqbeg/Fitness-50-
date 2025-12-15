@@ -23,6 +23,16 @@ const planSchema: Schema = {
       items: { type: Type.STRING },
       description: "3-5 Specific tips for weight loss over 50 (e.g. metabolism, bone health)."
     },
+    seasonalProduce: {
+      type: Type.ARRAY,
+      items: { type: Type.STRING },
+      description: "List of 5-7 seasonal fruits and vegetables available in the user's location."
+    },
+    recommendedNutsSeeds: {
+      type: Type.ARRAY,
+      items: { type: Type.STRING },
+      description: "List of 3-5 specific nuts and seeds beneficial for 50+ health (e.g. walnuts, chia)."
+    },
     weeklyPlan: {
       type: Type.ARRAY,
       items: {
@@ -39,7 +49,7 @@ const planSchema: Schema = {
       }
     }
   },
-  required: ["summary", "dailyCalories", "proteinTarget", "weeklyPlan", "tips", "motivationalQuote"]
+  required: ["summary", "dailyCalories", "proteinTarget", "weeklyPlan", "tips", "motivationalQuote", "seasonalProduce", "recommendedNutsSeeds"]
 };
 
 export const generatePersonalizedPlan = async (profile: UserProfile): Promise<WeightLossPlan> => {
@@ -56,6 +66,11 @@ export const generatePersonalizedPlan = async (profile: UserProfile): Promise<We
     - Tone: "Classic, Energetic, Trustworthy". Avoid slang. Be encouraging but scientific.
     - Suggest foods likely available in ${profile.location}.
     - Exercises should be low impact but effective (walking, resistance bands, swimming).
+    
+    MANDATORY INCLUSIONS:
+    1. SEASONAL PRODUCE: Identify fruits and vegetables currently in season for ${profile.location}.
+    2. NUTS & SEEDS: Explicitly include healthy fats like walnuts, almonds, chia seeds, flaxseeds, etc., which are vital for aging brains and hearts.
+    3. Ensure the weekly meal plan (WeeklyPlan) incorporates these specific seasonal items and nuts/seeds in the meals or snacks.
   `;
 
   try {
@@ -117,10 +132,6 @@ export const findLocalWellnessSpots = async (location: string, query: string): P
             if (chunk.web?.uri && chunk.web?.title) {
                  places.push({ title: chunk.web.title, uri: chunk.web.uri });
             }
-            // For Maps specifically
-            // Note: The structure might vary slightly based on the exact API version response for Maps, 
-            // but usually it's within groundingChunks or we parse the text for links if the model follows instruction.
-            // However, typical Google Maps tool returns structured grounding metadata.
         });
     }
 

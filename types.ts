@@ -31,6 +31,8 @@ export interface WeightLossPlan {
   weeklyPlan: DailyPlan[];
   tips: string[];
   motivationalQuote: string;
+  seasonalProduce: string[];
+  recommendedNutsSeeds: string[];
 }
 
 export interface LocalPlace {

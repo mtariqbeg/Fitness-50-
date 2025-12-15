@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UserProfile, WeightLossPlan } from '../types';
 import { PlanCard } from './PlanCard';
 import { LocalFinder } from './LocalFinder';
-import { Calendar, MapPin, MessageSquare, Award, ChevronDown } from 'lucide-react';
+import { Calendar, MapPin, Award, Leaf, Wheat } from 'lucide-react';
 
 interface DashboardProps {
   plan: WeightLossPlan;
@@ -101,10 +101,34 @@ export const Dashboard: React.FC<DashboardProps> = ({ plan, profile, onReset }) 
         {/* Tab Content */}
         <div className="animate-fade-in">
             {activeTab === 'PLAN' && (
-                <div className="space-y-12">
+                <div className="space-y-10">
                      <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 md:p-8">
                         <h3 className="text-xl font-serif font-bold text-indigo-900 mb-4">Plan Summary</h3>
-                        <p className="text-indigo-800 leading-relaxed text-lg">{plan.summary}</p>
+                        <p className="text-indigo-800 leading-relaxed text-lg mb-6">{plan.summary}</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-lg p-6 border border-indigo-100 shadow-sm">
+                            <div>
+                                <h4 className="flex items-center gap-2 font-bold text-emerald-700 mb-3">
+                                    <Leaf className="w-5 h-5" /> Seasonal Fresh Picks
+                                </h4>
+                                <ul className="list-disc list-inside text-slate-600 space-y-1">
+                                    {plan.seasonalProduce.map((item, i) => (
+                                        <li key={i}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="flex items-center gap-2 font-bold text-amber-700 mb-3">
+                                    <Wheat className="w-5 h-5" /> Power Nuts & Seeds
+                                </h4>
+                                <ul className="list-disc list-inside text-slate-600 space-y-1">
+                                    {plan.recommendedNutsSeeds.map((item, i) => (
+                                        <li key={i}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
                         <div className="mt-6 flex flex-wrap gap-3">
                             {plan.tips.map((tip, i) => (
                                 <span key={i} className="px-3 py-1 bg-white text-indigo-600 text-sm font-bold rounded-full border border-indigo-200 shadow-sm">
